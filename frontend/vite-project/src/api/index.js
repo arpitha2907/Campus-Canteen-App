@@ -26,4 +26,4 @@ export const updateComplaintStatus = (id, status)   => API.put(`/complaints/${id
 export const getDashboard = ()           => API.get("/analytics/dashboard");
 export const getPeakHours = ()           => API.get("/analytics/peak");
 export const getRevenue   = (from, to)   => API.get(`/analytics/revenue?from=${from}&to=${to}`);
-export const updateMenuItem = (id, data) => axios.put(`/api/menu/${id}`, data);
+export const updateMenuItem = (id, data) => API.put(`/menu/${id}`, data);
