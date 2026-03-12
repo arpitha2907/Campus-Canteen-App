@@ -11,21 +11,22 @@ connectDB(); // connect to MongoDB
 const app = express();
 const server = http.createServer(app);
 
+// Parse allowed origins from environment variable
+const allowedOrigins = process.env.CLIENT_URL 
+  ? process.env.CLIENT_URL.split(',').map(url => url.trim())
+  : ['http://localhost:5173'];
+
+const corsOptions = {
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+};
+
 const io = new Server(server, {
-  cors: {
-    origin: process.env.CLIENT_URL,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-  }
+  cors: corsOptions
 });
 
-app.use(cors({
-  origin: "process.env.CLIENT_URL",
-  credentials: true
-}));
-// Middleware
-app.use(cors({ origin: process.env.CLIENT_URL,   credentials: true
-}));
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes
